@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container" style="height: calc(100vh - 64px);">
+    <h2>Your Groups</h2>
+    {% for group in user.0.1.groups %}
+      <div class="row">
+        {{group}}
+      </div>
+    {% endfor %}
+  </div>
+
+
+{% endblock %}

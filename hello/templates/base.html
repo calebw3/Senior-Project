@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="../static/materialize/css/materialize.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <style media="screen">
+        .cool {
+          background: #fff url("data:image/svg+xml,%3Csvg width='686' height='644' xmlns='http://www.w3.org/2000/svg'%3E %3Cg fill='%237F7BFB' fill-rule='evenodd'%3E %3Cpath d='M140.515 611.116C-12.61 495.728-45.706 281.379 66.592 132.353 178.892-16.673 394.06-43.941 547.185 71.446c153.125 115.388-83.89 141.804-196.188 290.83-112.299 149.026-57.357 364.228-210.482 248.84z' opacity='.8'/%3E %3Cpath d='M427 533.716c143.042 0 259-60.441 259-135 0-74.558-190.587-12.488-333.629-12.488-143.041 0-184.371-62.07-184.371 12.488 0 74.559 115.958 135 259 135z' opacity='.6'/%3E %3C/g%3E %3C/svg%3E") center/auto 70% no-repeat fixed;
+        }
+      </style>
+    </head>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="https://early-senior-project.herokuapp.com/" class="brand-logo">Periwinkle</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/explore">Explore</a></li>
+        <li><a href="/groups">Groups</a></li>
+        <li><a href="collapsible.html">something</a></li>
+      </ul>
+    </div>
+  </nav>
+  <ul class="sidenav right-aligned" id="mobile-demo">
+    <li><a href="/explore">Explore</a></li>
+    <li><a href="/groups">Groups</a></li>
+    <li><a href="collapsible.html">something</a></li>
+  </ul>
+
+
+
+{% block content %}{% endblock %}
+
+<!--JavaScript at end of body for optimized loading-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../static/materialize/js/materialize.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.sidenav').sidenav({
+        edge: 'right'
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container valign-wrapper" style="height: calc(100vh - 64px);">
+  <div class="row valign-wrapper">
+    <div class="col s12 m6">
+      <h6>Join and manage your next personal project</h6>
+    </div>
+    <div class="col s12 m6">
+      <p class="center-align">
+        <a href="/login" class="waves-effect waves-light btn-flat">
+          <i class="material-icons left">vpn_key</i>
+          Log In
+        </a>
+      </p>
+      <p class="center-align">
+        <a href="/signUp" class="waves-effect waves-light btn-flat">
+          <i class="material-icons left">person_add</i>
+          Create an Account
+        </a>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+{% endblock %}

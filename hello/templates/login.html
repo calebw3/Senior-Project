@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="cool">
+  <div class="container valign-wrapper cool" style="height: calc(100vh - 64px);">
+  <div class="row">
+    <div class="card-panel center-align">
+      <form action="/postsignIn/" method="post">
+          {% csrf_token %}
+         <div class="row">
+           <div class="input-field col s12">
+             <i class="material-icons prefix">email</i>
+             <input placeholder="Email" id="Email" type="email" name="email">
+           </div>
+         </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">lock</i>
+            <input placeholder="Password" type="password" id="Password" name="pass"><br><br>
+          </div>
+        </div>
+          {% if credentials ==  False %}
+          <div class="row">
+            <blockquote>
+              <span class="red-text">Username or password incorrect.</span>
+            </blockquote>
+          </div>
+          {% endif %}
+        <button class="btn-flat waves-effect waves-light" type="submit" name="action">Log In
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+{% endblock %}

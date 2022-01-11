@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="cool">
+  <div class="container cool" style="height: calc(100vh - 64px);">
+    <br>
+    <h2>Hello, {{username}} </h2>
+    <div class="row">
+      <div class="col s12">
+        You're currently logged in! Visit either the Explore tab to browse public groups, or the Groups tab to manage the groups you're a part of!
+      </div>
+    </div>
+    <div>
+    <a onclick="location.href='{% url 'log' %}' " class="waves-effect waves-light btn-flat">Log Out</a>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}
