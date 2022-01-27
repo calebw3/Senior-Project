@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
 import pyrebase
+import json
 
 config={
     "apiKey": "AIzaSyCa9H0rqt71YSqnSW5ngHTTcMCG-0j8Hi0",
@@ -109,3 +110,27 @@ def postsignUp(request):
      except:
         return render(request, "registration.html")
      return render(request,"login.html")
+
+def postcreateGroup(request):
+    group_name = request.POST.get('new-group-name')
+    github = request.POST.get('new-group-github')
+    description = request.POST.get('new-group-description')
+    skills = request.POST.get('new-group-skills')
+    try:
+        print("trying to get database reference")
+        ref =  database.child("groups")
+        print("got reference")
+        posts_ref = ref.child(group_name)
+        new_post_ref = posts_ref.push(
+            {
+                'description': description,
+                'github': github,
+                'skills': skills
+            }
+        )
+        print("new_post_ref: %s" %new_post_ref)
+    except:
+        return render(request, "groups.html")
+    return redirect("/groups")
+
+    

@@ -4,12 +4,49 @@
 {% block content %}
   <div class="container" style="height: calc(100vh - 64px);">
     <h2>Your Groups</h2>
+    <div>
+      {% comment %} Trying to create a button that toggles the create group form. Ideally, it would pop up the form on top of the groups page {% endcomment %}
+      {% comment %} <button onclick="toggleNewGroupForm" class="waves-effect waves-light btn-flat">Create a group</button> {% endcomment %}
+    </div>
+
+    <div class="card-panel center-align" id="new-group-form">
+      <form action="/postcreateGroup/" method="post">
+          {% csrf_token %}
+         <div class="row">
+           <div class="input-field col s6">
+             <input placeholder="Group Name" type="text" id="New-group-name" name="new-group-name" required><br><br>
+           </div>
+           <div class="input-field col s6">
+            <input placeholder="Github" type="text" id="New-group-github" name="new-group-github"><br><br>
+            </div>
+         </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input placeholder="Description" type="text" id="New-group-description" name="new-group-description" required><br><br>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input placeholder="Skills" type="text" id="New-group-skills" name="new-group-skills"><br><br>
+          </div>
+        </div>
+        <button class="btn-flat waves-effect waves-light" type="submit" name="action">Create Group
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+    </div>
+
+
+
+
     {% for group in user.0.1.groups %}
       <div class="row">
         {{group}}
       </div>
     {% endfor %}
   </div>
+
+
 
 
 {% endblock %}
