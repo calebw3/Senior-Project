@@ -56,7 +56,6 @@ def groups(request):
         pass
     return redirect("/login")
 
-
 def signIn(request):
     try:
         auth.get_account_info(request.session['uid'])
@@ -115,20 +114,45 @@ def postcreateGroup(request):
     group_name = request.POST.get('new-group-name')
     github = request.POST.get('new-group-github')
     description = request.POST.get('new-group-description')
-    skills = request.POST.get('new-group-skills')
+    skills = request.POST.get('new-group-skills').replace(" ", "").split(",")
+
+    account = auth.get_account_info(request.session['uid'])
+    user_email = account['users'][0]['email']
+
+    members = request.POST.get('new-group-members').replace(" ", "").split(",")
+    members.insert(0, user_email)
+
     try:
-        print("trying to get database reference")
-        ref =  database.child("groups")
-        print("got reference")
-        posts_ref = ref.child(group_name)
-        new_post_ref = posts_ref.push(
+        for email in reversed(members):
+            print(email)
+            user_ref = database.child("users").order_by_child("email").equal_to(email).get()
+
+            if not user_ref.val():
+                members.remove(email)
+                continue
+
+            key = ""
+            updated_groups = []
+            for result in user_ref.each():
+                key = result.key()
+                updated_groups = list(result.val().get("groups"))
+
+            updated_groups.append(group_name)
+            
+            database.child("users").child(key).update({"groups": updated_groups})
+            print(members)
+
+        group_ref =  database.child("groups")
+        group_posts_ref = group_ref.child(group_name)
+        new_post_ref = group_posts_ref.set(
             {
                 'description': description,
                 'github': github,
-                'skills': skills
+                'skills': skills,
+                'members': members
             }
         )
-        print("new_post_ref: %s" %new_post_ref)
+        
     except:
         return render(request, "groups.html")
     return redirect("/groups")
