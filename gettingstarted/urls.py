@@ -19,7 +19,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("explore/", hello.views.explore),
     path("groups/", hello.views.groups, name="groups"),
-    path("group/<str:name>", hello.views.group),
+    path("groups/<str:name>", hello.views.group),
     #login urlpatterns
     path('login/', hello.views.signIn),
     path('home/', hello.views.home),
