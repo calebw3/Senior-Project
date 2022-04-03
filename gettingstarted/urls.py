@@ -28,5 +28,5 @@ urlpatterns = [
     path('logout/', hello.views.logout, name="log"),
     path('postsignUp/', hello.views.postsignUp),
     path('postcreateGroup/', hello.views.postcreateGroup),
-
+    path('mark_t/<str:name>/<str:description>/<str:status>', hello.views.mark_task)
 ]
