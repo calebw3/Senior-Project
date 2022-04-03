@@ -25,8 +25,18 @@ pyrebase.pyrebase.quote = noquote
 def index(request):
     return render(request, "index.html")
 
-def group(request):
-    args = {}
+def group(request, name):
+    group_ref =  database.child("groups").child(name).get()
+    group_data = []
+    for key, value in group_ref.val().items():
+        group_data.append((key, value))
+    description = group_data[0][1]
+    github = group_data[1][1]
+    members = group_data[2][1]
+    pending_members = group_data[3][1]
+    args = {'group': group_data, 'pending': pending_members, 'membs': members, 'desc': description, 'git' : github}
+    print(name)
+
     return render(request, "group.html", args)
 
 def explore(request):
@@ -138,7 +148,7 @@ def postcreateGroup(request):
                 try:
                     updated_groups = list(result.val().get("groups"))
                 except:
-                    print("No groups")
+                    pass
 
             updated_groups.append(group_name)
 
