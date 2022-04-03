@@ -3,10 +3,68 @@
 
 {% block content %}
 <div class="container" style="height: calc(100vh - 64px);">
-    {{pending}}
-    {{membs}}
+  <div class="row">
+    <h2>{{name}}</h2>
+    <h6>{{git}}</h6>
+    <h6>{% for member in membs %}
+      {{member}}
+    {% endfor %}</h6>
+  </div>
+  <div class="row">
     {{desc}}
-    {{git}}
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <p class="center-align">COMPLETED</p>
+      {% for task in completed %}
+      <div class="card">
+        <div class="card-content white-text">
+          <span class="card-title">{{task}}</span>
+        </div>
+        <div class="card-action">
+          <a href="#">Mark as In Progress</a>
+          <a href="#">Mark as TODO</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col s12 m4">
+      <p class="center-align">IN PROGRESS</p>
+      {% for task in in_progress %}
+        <div class="card">
+          <div class="card-content white-text">
+            <span class="card-title">{{task}}</span>
+          </div>
+          <div class="card-action">
+            <a href="#">Mark as Completed</a>
+            <a href="#">Mark as TODO</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="col s12 m4">
+      <p class="center-align">TODO</p>
+      {% for task in todo %}
+        <div class="card">
+          <div class="card-content white-text">
+            <span class="card-title">{{task}}</span>
+          </div>
+          <div class="card-action">
+            <a href="#">Mark as Completed</a>
+            <a href="#">Mark as In Progress</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="row">
+    <h4>Pending Members</h4>
+    {% for member in pending %}
+      <div class="row">
+        {{member}} <i class="material-icons">check</i> <i class="material-icons">clear</i>
+      </div>
+    {% endfor %}
+  </div>
 </div>
 
 

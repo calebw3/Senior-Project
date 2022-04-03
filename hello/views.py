@@ -34,7 +34,27 @@ def group(request, name):
     github = group_data[1][1]
     members = group_data[2][1]
     pending_members = group_data[3][1]
-    args = {'group': group_data, 'pending': pending_members, 'membs': members, 'desc': description, 'git' : github}
+    tasks = group_data[6][1]
+    completed = []
+    in_progress = []
+    todo = []
+    for key, value in tasks.items():
+        if value == "completed":
+            completed.append(key)
+        if value == "in progress":
+            in_progress.append(key)
+        if value == "todo":
+            todo.append(key)
+    args = {
+    'name': name,
+    'group': group_data,
+    'pending': pending_members,
+    'membs': members,
+    'desc': description,
+    'git' : github,
+    'completed': completed,
+    'in_progress': in_progress,
+    'todo': todo}
     print(name)
 
     return render(request, "group.html", args)
