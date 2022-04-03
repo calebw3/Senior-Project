@@ -26,5 +26,6 @@ urlpatterns = [
     path('signUp/', hello.views.signUp, name="signup"),
     path('logout/', hello.views.logout, name="log"),
     path('postsignUp/', hello.views.postsignUp),
+    path('postcreateGroup/', hello.views.postcreateGroup),
 
 ]
