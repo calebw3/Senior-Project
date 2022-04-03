@@ -4,9 +4,20 @@
 {% block content %}
   <div class="container" style="height: calc(100vh - 64px);">
     <h2>Your Groups</h2>
+    {% for group in user.0.1.groups %}
+      <div class="row">
+        {{group}}
+      </div>
+    {% endfor %}
+    <div class="row">
+      <div class="col s12 m3 push-">
+        
+      </div>
+    </div>
 
   <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Create a group</a>
+
+  <a class="waves-effect waves-light btn-flat modal-trigger" href="#modal1"><i class="material-icons left">add_circle_outline</i>Create a group</a>
 
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
@@ -44,12 +55,6 @@
       </div>
     </div>
   </div>
-    
-    {% for group in user.0.1.groups %}
-      <div class="row">
-        {{group}}
-      </div>
-    {% endfor %}
   </div>
 
 
