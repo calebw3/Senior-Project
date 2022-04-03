@@ -135,10 +135,13 @@ def postcreateGroup(request):
             updated_groups = []
             for result in user_ref.each():
                 key = result.key()
-                updated_groups = list(result.val().get("groups"))
+                try:
+                    updated_groups = list(result.val().get("groups"))
+                except:
+                    print("No groups")
 
             updated_groups.append(group_name)
-            
+
             database.child("users").child(key).update({"groups": updated_groups})
             print(members)
 
@@ -152,9 +155,7 @@ def postcreateGroup(request):
                 'members': members
             }
         )
-        
+
     except:
         return render(request, "groups.html")
     return redirect("/groups")
-
-    
