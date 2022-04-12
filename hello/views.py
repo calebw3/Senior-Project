@@ -200,12 +200,17 @@ def postcreateGroup(request):
 
         group_ref =  database.child("groups")
         group_posts_ref = group_ref.child(group_name)
+        tasks = {'finalize team': 'in progress'}
+        pending_members = [""]
         new_post_ref = group_posts_ref.set(
             {
                 'description': description,
                 'github': github,
                 'skills': skills,
-                'members': members
+                'members': members,
+                'public': 'true',
+                'tasks': tasks,
+                'pending_members': pending_members
             }
         )
 
