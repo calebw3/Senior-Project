@@ -82,6 +82,7 @@ def explore(request):
         for key, value in results.val().items():
             groups.append((key, value))
         args = {'groups': groups}
+        
         return render(request, "explore.html", args)
     except:
         pass
@@ -123,6 +124,24 @@ def groups(request):
     except:
         pass
     return redirect("/login")
+
+def join_request(request, group_name):
+    reasoning = request.POST.get('reasoning')
+    try:
+        account = auth.get_account_info(request.session['uid'])
+        curr_email = account['users'][0]['email']
+        group_ref =  database.child("groups").child(group_name).get()
+        group_data = []
+        for key, value in group_ref.val().items():
+            group_data.append((key, value))
+        pending_members = group_data[3][1]
+        pending_members.append(curr_email)
+        database.child("groups").child(group_name).update({"pending_members": pending_members})
+        return redirect("/explore")
+    except:
+        pass
+    return redirect("/login")
+    
 
 def signIn(request):
     try:

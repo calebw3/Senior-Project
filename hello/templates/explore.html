@@ -45,9 +45,16 @@
             <div class="card-reveal">
               <span class="card-title grey-text text-darken-4">Request to Join<i class="material-icons right">close</i></span>
               <div class="row">
-                <div class="input-field col s12">
-                  <textarea placeholder="Explain why you want to join and your qualifications." class="materialize-textarea"></textarea>
-                </div>
+                <form action="/join_request/{{group.0}}" method="post">
+                  {% csrf_token %}
+                  <div class="input-field col s12">
+                    <textarea placeholder="Explain why you want to join and your qualifications." name="reasoning" class="materialize-textarea"></textarea>
+                    <button class="btn-flat waves-effect waves-light" type="submit" name="action">Request
+                      <i class="material-icons right">send</i>
+                    </button>
+                  </div>
+                </form>
+                
               </div>
             </div>
             <div class="card-action">
