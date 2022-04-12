@@ -5,17 +5,25 @@
   <div class="container" style="height: calc(100vh - 64px);">
     <h2>Explore Groups</h2>
     <h4>Filter by:</h4>
+    <form action="/filter/" method="post">
+      {% csrf_token %}
     <div class="row">
       <div class="input-field col s12 m6 l4">
-        <div class="chips chips-autocomplete"></div>
+        <input placeholder="Skills" name="skills" type="text">
       </div>
       <div class="input-field col s12 m6 l4">
-        <input placeholder="Project Name" id="proj_name" type="text">
+        <input placeholder="Project Name" name="proj_name" type="text">
       </div>
       <div class="input-field col s12 m6 l4">
-        <input placeholder="Group Members" id="memb_name" type="text">
+        <input placeholder="Group Members" name="memb_name" type="text">
+      </div>
+      <div class="col s12 center-align">
+        <button class="btn-flat waves-effect waves-light" type="submit" name="action">Filter
+          <i class="material-icons right">refresh</i>
+        </button>
       </div>
     </div>
+    </form>
     <!-- do something here that will filter stuff
         - skills with the chips form
         - members? in case you know someone has a project?
@@ -57,28 +65,4 @@
       {% endfor %}
     </div>
   </div>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.chips').chips();
-    $('.chips-autocomplete').chips({
-    autocompleteOptions: {
-      data: {
-        'Python': null,
-        'Java': null,
-        'Javascript': null,
-        'C++': null,
-        'HTML': null,
-        'CSS': null,
-        'Web-Dev': null,
-        'GitHub': null,
-        'Selenium': null,
-      },
-      limit: Infinity,
-      minLength: 1
-    }
-    });
-  });
-
-</script>
 {% endblock %}
