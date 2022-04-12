@@ -30,5 +30,6 @@ urlpatterns = [
     path('filter/', hello.views.filter),
     path('postcreateGroup/', hello.views.postcreateGroup),
     path('mark_t/<str:name>/<str:description>/<str:status>', hello.views.mark_task),
-    path('join_request/<str:group_name>', hello.views.join_request)
+    path('join_request/<str:group_name>', hello.views.join_request),
+    path('member_decision/<str:user_email>/<str:group_name>/<str:decision>', hello.views.member_decision)
 ]

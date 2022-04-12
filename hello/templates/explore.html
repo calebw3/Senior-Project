@@ -62,7 +62,7 @@
                 an if that checks if the link is none so clicking doesnt break -->
               <a class="activator" href="#">Request to Join</a> <!-- make this disabled if the current
                 user email is already in the pending members attribute of this group -->
-              <span class="new badge" data-badge-caption="ahead"> {{ group.1.pending_members|length }} </span>
+              <span class="new badge" data-badge-caption="ahead"> {{ group.1.pending_members|length|add:"-1" }} </span>
               <!-- need to make this functional, in theory it would launch:
                     add the current users email to the pending_members attribute
                     of the project selected somehow -->

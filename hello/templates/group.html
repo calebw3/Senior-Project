@@ -59,11 +59,20 @@
   </div>
   <div class="row">
     <h4>Pending Members</h4>
-    {% for member in pending %}
+    {% if pending|length == 1 %}
       <div class="row">
-        {{member}} <i class="material-icons">check</i> <i class="material-icons">clear</i>
+        <p>No pending members</p>
       </div>
-    {% endfor %}
+    {% else %}
+      {% for member in pending %}
+        <div class="row">
+          {% if member != "" %}
+            {{member}} <a href="/member_decision/{{member}}/{{name}}/accept" style="border-radius: 15px;" class="waves-effect waves-light btn-floating"><i class="material-icons left">check</i></a>
+            <a href="/member_decision/{{member}}/{{name}}/decline" style="border-radius: 15px;" class="waves-effect waves-light btn-floating"><i class="material-icons left">clear</i></a>
+          {% endif %}
+       </div>
+      {% endfor %}
+    {% endif %}
   </div>
 </div>
 

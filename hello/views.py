@@ -1,3 +1,4 @@
+from turtle import pen
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -87,6 +88,27 @@ def explore(request):
     except:
         pass
     return redirect("/login")
+
+def member_decision(request, user_email, group_name, decision):
+    try:
+        account = auth.get_account_info(request.session['uid'])
+        group_ref =  database.child("groups").child(group_name).get()
+        group_data = []
+        for key, value in group_ref.val().items():
+            group_data.append((key, value))
+        pending_members = group_data[3][1]
+        pending_members.remove(user_email)
+        if(pending_members == []):
+            pending_members = [""]
+        database.child("groups").child(group_name).update({"pending_members": pending_members})
+        if decision == "accept":
+            members = group_data[2][1]
+            members.append(user_email)
+            database.child("groups").child(group_name).update({"members": members})
+        return redirect("/groups/" + group_name)
+    except:
+        pass
+    return redirect("/groups")
 
 def filter(request):
     group_name = request.POST.get('proj_name')
