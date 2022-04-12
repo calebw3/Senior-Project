@@ -5,7 +5,7 @@
 <div class="container" style="height: calc(100vh - 64px);">
   <div class="row">
     <h2>{{name}}</h2>
-    <h6>{{git}}</h6>
+    <a href="{{git}}">{{git}}</a>
     <h6>{% for member in membs %}
       {{member}}
     {% endfor %}</h6>
@@ -22,8 +22,10 @@
           <span class="card-title">{{task}}</span>
         </div>
         <div class="card-action">
-          <a href = "/mark_t/{{name}}/{{task}}/in progress">mark as in progress</a>
-          <a href = "/mark_t/{{name}}/{{task}}/todo">mark as TODO</a>
+          <div class = "row" style="margin:0px">
+            <div class="col s6 center-align"><a style="margin:0px" href = "/mark_t/{{name}}/{{task}}/in progress">mark as in progress</a></div>
+            <div class="col s6 center-align"><a style="margin:0px" href = "/mark_t/{{name}}/{{task}}/todo">mark as TODO</a></div>
+          </div>
         </div>
       </div>
       {% endfor %}
@@ -36,8 +38,10 @@
             <span class="card-title">{{task}}</span>
           </div>
           <div class="card-action">
-            <a href = "/mark_t/{{name}}/{{task}}/completed">mark as completed</a>
-            <a href = "/mark_t/{{name}}/{{task}}/todo">mark as TODO</a>
+            <div class="row" style="margin:0px">
+              <div class="col s6 center-align"><a style="margin:0px" href = "/mark_t/{{name}}/{{task}}/completed">mark as completed</a></div>
+              <div class="col s6 center-align"><a style="margin:0px" href = "/mark_t/{{name}}/{{task}}/todo">mark as TODO</a></div>
+            </div>
           </div>
         </div>
       {% endfor %}
@@ -50,8 +54,10 @@
             <span class="card-title">{{task}}</span>
           </div>
           <div class="card-action">
-            <a href = "/mark_t/{{name}}/{{task}}/completed">mark as completed</a>
-            <a href = "/mark_t/{{name}}/{{task}}/in progress">mark as in progress</a>
+            <div class="row" style="margin:0px">
+              <div class="col s6 center-align"><a style="margin:0px" href = "/mark_t/{{name}}/{{task}}/completed">mark as completed</a></div>
+              <div class="col s6 center-align"><a style="margin:0px" href = "/mark_t/{{name}}/{{task}}/in progress">mark as in progress</a></div>
+          </div>
           </div>
         </div>
       {% endfor %}

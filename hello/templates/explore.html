@@ -58,8 +58,11 @@
               </div>
             </div>
             <div class="card-action">
-              <a href="{{group.1.github}}">GitHub</a> <!-- make this disabled with
-                an if that checks if the link is none so clicking doesnt break -->
+              {% if group.1.github == "" %}
+                <a>Github</a>
+              {% else %}
+                <a href="{{group.1.github}}">GitHub</a>
+              {% endif %}
               <a class="activator" href="#">Request to Join</a> <!-- make this disabled if the current
                 user email is already in the pending members attribute of this group -->
               <span class="new badge" data-badge-caption="ahead"> {{ group.1.pending_members|length|add:"-1" }} </span>
