@@ -31,5 +31,6 @@ urlpatterns = [
     path('postcreateGroup/', hello.views.postcreateGroup),
     path('mark_t/<str:name>/<str:description>/<str:status>', hello.views.mark_task),
     path('join_request/<str:group_name>', hello.views.join_request),
-    path('member_decision/<str:user_email>/<str:group_name>/<str:decision>', hello.views.member_decision)
+    path('member_decision/<str:user_email>/<str:group_name>/<str:decision>', hello.views.member_decision),
+    path('postCreateTask/<str:group_name>', hello.views.postCreateTask)
 ]

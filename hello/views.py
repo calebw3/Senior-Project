@@ -272,3 +272,17 @@ def postcreateGroup(request):
     except:
         return render(request, "groups.html")
     return redirect("/groups")
+
+def postCreateTask(request, group_name):
+    description = request.POST.get('new-task-description')
+    status = request.POST.get('dropdown')
+    print(status)
+    group_ref =  database.child("groups").child(group_name).get()
+    group_data = []
+    for key, value in group_ref.val().items():
+        group_data.append((key, value))
+    tasks = group_data[6][1]
+    tasks[description] = status
+    database.child("groups").child(group_name).update({"tasks": tasks})
+    return redirect("/groups/" + group_name)
+
