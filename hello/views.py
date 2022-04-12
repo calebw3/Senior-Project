@@ -87,6 +87,29 @@ def explore(request):
         pass
     return redirect("/login")
 
+def filter(request):
+    group_name = request.POST.get('proj_name')
+    members_name = request.POST.get('memb_name')
+    skills_raw = request.POST.get('skills')
+    if group_name == "" and members_name == "" and skills_raw == "":
+        return redirect("/explore")
+    else:
+        members = members_name.replace(" ", "").split(",")
+        skills = skills_raw.replace(" ", "").split(",")
+    try:
+        auth.get_account_info(request.session['uid'])
+        results = database.child("groups").get()
+        groups = []
+        for key, value in results.val().items():
+            if (key == group_name) or (len((set(members) & set(value['members']))) > 0) or (len((set(skills) & set(value['skills']))) > 0):
+                groups.append((key, value))
+        args = {'groups': groups}
+        return render(request, "explore.html", args)
+    except:
+        pass
+    return redirect("/login")
+
+
 def groups(request):
     try:
         account = auth.get_account_info(request.session['uid'])
@@ -192,12 +215,17 @@ def postcreateGroup(request):
 
         group_ref =  database.child("groups")
         group_posts_ref = group_ref.child(group_name)
+        tasks = {'finalize team': 'in progress'}
+        pending_members = [""]
         new_post_ref = group_posts_ref.set(
             {
                 'description': description,
                 'github': github,
                 'skills': skills,
-                'members': members
+                'members': members,
+                'public': 'true',
+                'tasks': tasks,
+                'pending_members': pending_members
             }
         )
 

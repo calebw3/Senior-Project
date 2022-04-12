@@ -22,14 +22,12 @@
       <ul class="right hide-on-med-and-down">
         <li><a href="/explore">Explore</a></li>
         <li><a href="/groups">Groups</a></li>
-        <li><a href="collapsible.html">something</a></li>
       </ul>
     </div>
   </nav>
   <ul class="sidenav right-aligned" id="mobile-demo">
     <li><a href="/explore">Explore</a></li>
     <li><a href="/groups">Groups</a></li>
-    <li><a href="collapsible.html">something</a></li>
   </ul>
 
 
@@ -48,6 +46,28 @@
     $(document).ready(function(){
       $('.modal').modal();
     });
+    $(document).ready(function(){
+      $('.chips').chips();
+    });
+    $(document).ready(function(){
+      $('.chips-autocomplete').chips({
+      autocompleteOptions: {
+        data: {
+          'Python': null,
+          'Java': null,
+          'Javascript': null,
+          'C++': null,
+          'HTML': null,
+          'CSS': null,
+          'Web-Dev': null,
+          'GitHub': null,
+          'Selenium': null,
+        },
+        limit: Infinity,
+        minLength: 1
+      }
+    });
+  });
   </script>
 </body>
 </html>
