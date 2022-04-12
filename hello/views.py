@@ -66,16 +66,12 @@ def mark_task(request, name, description, status):
     tasks = group_data[6][1]
     for key, value in tasks.items():
         if key == description:
-            print("hello")
             tasks[key] = status
-    print(tasks)
     try:
-        group_ref.update({"tasks": tasks})
+        database.child("groups").child(name).update({"tasks": tasks})
     except:
         return render(request, "group.html")
-    return redirect("/group/" + name)
-
-
+    return redirect("/groups/" + name)
 
 
 def explore(request):
