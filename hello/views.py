@@ -55,9 +55,24 @@ def group(request, name):
     'completed': completed,
     'in_progress': in_progress,
     'todo': todo}
-    print(name)
 
     return render(request, "group.html", args)
+
+def mark_task(request, name, description, status):
+    group_ref =  database.child("groups").child(name).get()
+    group_data = []
+    for key, value in group_ref.val().items():
+        group_data.append((key, value))
+    tasks = group_data[6][1]
+    for key, value in tasks.items():
+        if key == description:
+            tasks[key] = status
+    try:
+        database.child("groups").child(name).update({"tasks": tasks})
+    except:
+        return render(request, "group.html")
+    return redirect("/groups/" + name)
+
 
 def explore(request):
     try:
