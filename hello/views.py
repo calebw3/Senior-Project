@@ -82,7 +82,7 @@ def explore(request):
         for key, value in results.val().items():
             groups.append((key, value))
         args = {'groups': groups}
-        
+
         return render(request, "explore.html", args)
     except:
         pass
@@ -162,7 +162,7 @@ def join_request(request, group_name):
     except:
         pass
     return redirect("/login")
-    
+
 
 def signIn(request):
     try:
@@ -255,7 +255,7 @@ def postcreateGroup(request):
 
         group_ref =  database.child("groups")
         group_posts_ref = group_ref.child(group_name)
-        tasks = {'finalize team': 'in progress'}
+        tasks = {'fake_task': 'fake_status'}
         pending_members = [""]
         new_post_ref = group_posts_ref.set(
             {
@@ -285,4 +285,3 @@ def postCreateTask(request, group_name):
     tasks[description] = status
     database.child("groups").child(group_name).update({"tasks": tasks})
     return redirect("/groups/" + group_name)
-
