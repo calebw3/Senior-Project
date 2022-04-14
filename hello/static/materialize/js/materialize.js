@@ -12372,3 +12372,20 @@ $jscomp.polyfill = function (e, r, p, m) {
 
   Range.init($('input[type=range]'));
 })(cash, M.anime);
+
+
+function description_edit()
+{
+  var edit = document.getElementById("description_edit")
+  edit.style.display = "inline"
+  var base = document.getElementById("base_description")
+  base.style.display = "none"
+}
+
+function undo()
+{
+  var edit = document.getElementById("description_edit")
+  edit.style.display = "none"
+  var base = document.getElementById("base_description")
+  base.style.display = "inline"
+}

@@ -285,3 +285,12 @@ def postCreateTask(request, group_name):
     tasks[description] = status
     database.child("groups").child(group_name).update({"tasks": tasks})
     return redirect("/groups/" + group_name)
+
+def updateDescription(request, group_name):
+    try:
+        new_description = request.POST.get('new_description')
+        print(new_description)
+        database.child("groups").child(group_name).update({"description": new_description})
+        return redirect("/groups/" + group_name)
+    except:
+        return redirect("/groups")

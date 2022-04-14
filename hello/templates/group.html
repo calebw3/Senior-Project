@@ -14,9 +14,24 @@
       {% endif %}
     {% endfor %}</h6>
   </div>
-  <div class="row">
-    {{desc}}
+  <div class="row" id="base_description">
+    <h5>{{desc}} <a onclick="description_edit()" style="border-radius: 15px;" class="waves-effect waves-light btn-flat"><i class="material-icons left">edit</i>Edit</a></h5>
   </div>
+  <div class="row" style="display: none" id="description_edit">
+    <form action="/updateDescription/{{name}}" method="post">
+      {% csrf_token %}
+      <div class="input-field col s12">
+        <input value="{{desc}}" name="new_description" type="text" class="validate">
+      </div>
+      <div class="col s12 center-align">
+        <a onclick="undo()" style="border-radius: 15px;" class="waves-effect waves-light btn-flat"><i class="material-icons left">cancel</i>Cancel</a>
+        <button class="btn-flat waves-effect waves-light" type="submit" name="action">Save
+          <i class="material-icons left">save</i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <br>
 
 
 
@@ -33,7 +48,7 @@
             {% csrf_token %}
            <div class="row">
              <div class="input-field col s12">
-               <input placeholder="Descripton" type="text" name="new-task-description" required><br><br>
+               <input placeholder="Descripton" type="text" name="new-task-description"><br><br>
              </div>
              <div class="input-field col s12">
               <select name="dropdown">
