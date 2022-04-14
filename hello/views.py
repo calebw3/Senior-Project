@@ -215,7 +215,12 @@ def postsignUp(request):
         # creating a user with the given email and password
         user=auth.create_user_with_email_and_password(email,passs)
         # must create an entry in the users database as well
-        uid = user['localId']
+        #uid = user['localId']
+        database.child("users").child(name).set(
+            {
+                'email': email
+            }
+        )
      except:
         return render(request, "registration.html")
      return render(request,"login.html")
@@ -234,7 +239,6 @@ def postcreateGroup(request):
 
     try:
         for email in reversed(members):
-            print(email)
             user_ref = database.child("users").order_by_child("email").equal_to(email).get()
 
             if not user_ref.val():
@@ -253,13 +257,10 @@ def postcreateGroup(request):
             updated_groups.append(group_name)
 
             database.child("users").child(key).update({"groups": updated_groups})
-            print(members)
 
-        group_ref =  database.child("groups")
-        group_posts_ref = group_ref.child(group_name)
         tasks = {'fake_task': 'fake_status'}
         pending_members = [""]
-        new_post_ref = group_posts_ref.set(
+        database.child("groups").child(group_name).set(
             {
                 'description': description,
                 'github': github,
@@ -278,7 +279,6 @@ def postcreateGroup(request):
 def postCreateTask(request, group_name):
     description = request.POST.get('new-task-description')
     status = request.POST.get('dropdown')
-    print(status)
     group_ref =  database.child("groups").child(group_name).get()
     group_data = []
     for key, value in group_ref.val().items():
@@ -291,7 +291,6 @@ def postCreateTask(request, group_name):
 def updateDescription(request, group_name):
     try:
         new_description = request.POST.get('new_description')
-        print(new_description)
         database.child("groups").child(group_name).update({"description": new_description})
         return redirect("/groups/" + group_name)
     except:
