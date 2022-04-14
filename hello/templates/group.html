@@ -7,7 +7,11 @@
     <h2>{{name}}</h2>
     <a href="{{git}}">{{git}}</a>
     <h6>{% for member in membs %}
-      {{member}}
+      {% if member != membs|last %}
+        {{member}},
+      {% else %}
+        {{member}}
+      {% endif %}
     {% endfor %}</h6>
   </div>
   <div class="row">
