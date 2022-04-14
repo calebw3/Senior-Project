@@ -110,9 +110,9 @@ def member_decision(request, user_email, group_name, decision):
     return redirect("/groups")
 
 def filter(request):
-    group_name = request.POST.get('proj_name')
-    members_name = request.POST.get('memb_name')
-    skills_raw = request.POST.get('skills')
+    group_name = request.POST.get('proj_name').lower()
+    members_name = request.POST.get('memb_name').lower()
+    skills_raw = request.POST.get('skills').lower()
     if group_name == "" and members_name == "" and skills_raw == "":
         return redirect("/explore")
     else:
@@ -123,7 +123,9 @@ def filter(request):
         results = database.child("groups").get()
         groups = []
         for key, value in results.val().items():
-            if (key == group_name) or (len((set(members) & set(value['members']))) > 0) or (len((set(skills) & set(value['skills']))) > 0):
+            database_members = [member.lower() for member in value['members']]
+            database_skills = [skill.lower() for skill in value['skills']]
+            if (key.lower() == group_name) or (len((set(members) & set(database_members))) > 0) or (len((set(skills) & set(database_skills))) > 0):
                 groups.append((key, value))
         args = {'groups': groups}
         return render(request, "explore.html", args)
