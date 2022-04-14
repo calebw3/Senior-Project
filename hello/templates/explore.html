@@ -38,7 +38,11 @@
               <p>{{group.1.description}}</p>
               <p> <b>Skills: </b>
                 {% for skill in group.1.skills %}
-                  {{ skill }}
+                  {% if skill != group.1.skills|last %}
+                    {{skill}},
+                  {% else %}
+                    {{skill}}
+                  {% endif %}
                 {% endfor %}
               </p>
             </div>
