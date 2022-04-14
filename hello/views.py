@@ -104,6 +104,21 @@ def member_decision(request, user_email, group_name, decision):
             members = group_data[2][1]
             members.append(user_email)
             database.child("groups").child(group_name).update({"members": members})
+
+            user_ref = database.child("users").order_by_child("email").equal_to(user_email).get()
+
+            key = ""
+            updated_groups = []
+            for result in user_ref.each():
+                key = result.key()
+                try:
+                    updated_groups = list(result.val().get("groups"))
+                except:
+                    pass
+
+            updated_groups.append(group_name)
+
+            database.child("users").child(key).update({"groups": updated_groups})
         return redirect("/groups/" + group_name)
     except:
         pass
