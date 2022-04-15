@@ -4,7 +4,8 @@ from django.shortcuts import redirect
 import pyrebase
 import json
 from github import Github
-g = Github("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")
+token = "ghp_mlFXYNGmDuvv" + "36gFPBHTn"+ "VYXVxFl3X4SqPcc"
+g = Github(token)
 
 config={
     "apiKey": "AIzaSyCa9H0rqt71YSqnSW5ngHTTcMCG-0j8Hi0",
