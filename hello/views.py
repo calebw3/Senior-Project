@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 import pyrebase
 import json
+from github import Github
+g = Github("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")
 
 config={
     "apiKey": "AIzaSyCa9H0rqt71YSqnSW5ngHTTcMCG-0j8Hi0",
@@ -26,6 +28,7 @@ def index(request):
     return render(request, "index.html")
 
 def group(request, name):
+
     group_ref =  database.child("groups").child(name).get()
     group_data = []
     for key, value in group_ref.val().items():
@@ -38,6 +41,16 @@ def group(request, name):
     completed = []
     in_progress = []
     todo = []
+    github_open_issues = []
+    github_closed_issues = []
+    if github != "none" and github != "" and github != "https://github.com/":
+        repo = g.get_repo(github[19:])
+        open_issues = repo.get_issues()
+        closed_issues = repo.get_issues(state='closed')
+        for issue in open_issues:
+            github_open_issues.append(issue.title)
+        for issue in closed_issues:
+            github_closed_issues.append(issue.title)
     for key, value in tasks.items():
         if value == "completed":
             completed.append(key)
@@ -54,23 +67,48 @@ def group(request, name):
     'git' : github,
     'completed': completed,
     'in_progress': in_progress,
-    'todo': todo}
+    'todo': todo,
+    'open_issues': github_open_issues,
+    'closed_issues': github_closed_issues}
 
     return render(request, "group.html", args)
 
 def mark_task(request, name, description, status):
-    group_ref =  database.child("groups").child(name).get()
-    group_data = []
-    for key, value in group_ref.val().items():
-        group_data.append((key, value))
-    tasks = group_data[6][1]
-    for key, value in tasks.items():
-        if key == description:
-            tasks[key] = status
-    try:
-        database.child("groups").child(name).update({"tasks": tasks})
-    except:
-        return render(request, "group.html")
+    if status == "open":
+        group_ref =  database.child("groups").child(name).get()
+        group_data = []
+        for key, value in group_ref.val().items():
+            group_data.append((key, value))
+        github = group_data[1][1]
+        repo = g.get_repo(github[19:])
+        closed_issues = repo.get_issues(state='closed')
+        for issue in closed_issues:
+            if issue.title == description:
+                issue.edit(state='open')
+    elif status == "closed":
+        group_ref =  database.child("groups").child(name).get()
+        group_data = []
+        for key, value in group_ref.val().items():
+            group_data.append((key, value))
+        github = group_data[1][1]
+        repo = g.get_repo(github[19:])
+        open_issues = repo.get_issues()
+        for issue in open_issues:
+            if issue.title == description:
+                issue.edit(state='closed')
+    else:
+        group_ref =  database.child("groups").child(name).get()
+        group_data = []
+        for key, value in group_ref.val().items():
+            group_data.append((key, value))
+        tasks = group_data[6][1]
+        for key, value in tasks.items():
+            if key == description:
+                tasks[key] = status
+        try:
+            database.child("groups").child(name).update({"tasks": tasks})
+        except:
+            return render(request, "group.html")
     return redirect("/groups/" + name)
 
 

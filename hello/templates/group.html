@@ -122,6 +122,38 @@
       {% endfor %}
     </div>
   </div>
+  <br>
+  {% if git != "" and git != "none" and git != "https://github.com/" %}
+  <div class="row">
+    <h5>GitHub Issues</h5>
+    <div class="col s12 m6">
+      <p class="center-align">CLOSED</p>
+      {% for task in closed_issues %}
+        <div class="card">
+          <div class="card-content white-text">
+            <span class="card-title">{{task}}</span>
+          </div>
+          <div class="card-action">
+              <a style="margin:0px" href = "/mark_t/{{name}}/{{task}}/open">mark as open</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="col s12 m6">
+      <p class="center-align">OPEN</p>
+      {% for task in open_issues %}
+        <div class="card">
+          <div class="card-content white-text">
+            <span class="card-title">{{task}}</span>
+          </div>
+          <div class="card-action">
+              <a style="margin:0px" href = "/mark_t/{{name}}/{{task}}/closed">mark as closed</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
   <div class="row">
     <h4>Pending Members</h4>
     {% if pending|length == 1 %}
