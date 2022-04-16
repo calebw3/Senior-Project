@@ -29,7 +29,6 @@ def index(request):
     return render(request, "index.html")
 
 def group(request, name):
-
     group_ref =  database.child("groups").child(name).get()
     group_data = []
     for key, value in group_ref.val().items():
@@ -39,6 +38,7 @@ def group(request, name):
     members = group_data[2][1]
     pending_members = group_data[3][1]
     tasks = group_data[6][1]
+    github_token = group_data[7][1]
     completed = []
     in_progress = []
     todo = []
@@ -66,6 +66,7 @@ def group(request, name):
     'membs': members,
     'desc': description,
     'git' : github,
+    'git_token': github_token,
     'completed': completed,
     'in_progress': in_progress,
     'todo': todo,
@@ -282,6 +283,7 @@ def postsignUp(request):
 def postcreateGroup(request):
     group_name = request.POST.get('new-group-name')
     github = request.POST.get('new-group-github')
+    github_token = request.POST.get('new-group-github-token')
     description = request.POST.get('new-group-description')
     skills = request.POST.get('new-group-skills').replace(" ", "").split(",")
 
@@ -322,7 +324,8 @@ def postcreateGroup(request):
                 'members': members,
                 'public': 'true',
                 'tasks': tasks,
-                'pending_members': pending_members
+                'pending_members': pending_members,
+                'zgithub_token': github_token
             }
         )
 
@@ -349,3 +352,16 @@ def updateDescription(request, group_name):
         return redirect("/groups/" + group_name)
     except:
         return redirect("/groups")
+
+def updateGithub(request, group_name):
+    new_github = request.POST.get('new-github-link')
+    new_token = request.POST.get("new-github-token")
+    print(new_github)
+    print(new_token)
+    try:
+        database.child("groups").child(group_name).update({"github": new_github})
+        database.child("groups").child(group_name).update({"zgithub_token": new_token})
+        return redirect("/groups/" + group_name)
+    except:
+        return redirect("/groups")
+    return redirect("/groups")
