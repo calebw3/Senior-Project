@@ -359,8 +359,6 @@ def updateDescription(request, group_name):
 def updateGithub(request, group_name):
     new_github = request.POST.get('new-github-link')
     new_token = request.POST.get("new-github-token")
-    print(new_github)
-    print(new_token)
     try:
         database.child("groups").child(group_name).update({"github": new_github})
         database.child("groups").child(group_name).update({"zgithub_token": new_token})
@@ -368,3 +366,18 @@ def updateGithub(request, group_name):
     except:
         return redirect("/groups")
     return redirect("/groups")
+
+def createIssue(request, group_name, git, git_token):
+    new_issue_title = request.POST.get('new-issue-title')
+    new_issue_body = request.POST.get('new-issue-body')
+    print(new_issue_title)
+    print(new_issue_body)
+    try:
+        g = Github(git_token)
+        repo = g.get_repo(git[19:])
+        repo.create_issue(title=new_issue_title, body=new_issue_body)
+        return redirect("/groups/" + group_name)
+    except:
+        return redirect("/groups")
+    return redirect("/groups")
+
