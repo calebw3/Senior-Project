@@ -40,10 +40,10 @@ def group(request, name):
     completed = []
     in_progress = []
     todo = []
-    g = Github(github_token)
     github_open_issues = []
     github_closed_issues = []
     if github != "none" and github != "" and github != "https://github.com/":
+        g = Github(github_token)
         repo = g.get_repo(github[19:])
         open_issues = repo.get_issues()
         closed_issues = repo.get_issues(state='closed')
@@ -94,6 +94,8 @@ def mark_task(request, name, description, status):
         for key, value in group_ref.val().items():
             group_data.append((key, value))
         github = group_data[1][1]
+        github_token = group_data[7][1]
+        g = Github(github_token)
         repo = g.get_repo(github[19:])
         open_issues = repo.get_issues()
         for issue in open_issues:
