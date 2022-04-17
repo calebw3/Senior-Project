@@ -4,8 +4,6 @@ from django.shortcuts import redirect
 import pyrebase
 import json
 from github import Github
-token = "ghp_mlFXYNGmDuvv" + "36gFPBHTn"+ "VYXVxFl3X4SqPcc"
-g = Github(token)
 
 config={
     "apiKey": "AIzaSyCa9H0rqt71YSqnSW5ngHTTcMCG-0j8Hi0",
@@ -42,6 +40,7 @@ def group(request, name):
     completed = []
     in_progress = []
     todo = []
+    g = Github(github_token)
     github_open_issues = []
     github_closed_issues = []
     if github != "none" and github != "" and github != "https://github.com/":
@@ -82,6 +81,8 @@ def mark_task(request, name, description, status):
         for key, value in group_ref.val().items():
             group_data.append((key, value))
         github = group_data[1][1]
+        github_token = group_data[7][1]
+        g = Github(github_token)
         repo = g.get_repo(github[19:])
         closed_issues = repo.get_issues(state='closed')
         for issue in closed_issues:
