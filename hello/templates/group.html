@@ -5,7 +5,28 @@
 <div class="container" style="height: calc(100vh - 64px);">
   <div class="row">
     <h2>{{name}}</h2>
-    <a href="{{git}}">{{git}}</a>
+
+    <a href="{{git}}">{{git}}</a> <a class="waves-effect waves-light btn-flat modal-trigger" href="#modal0"><i class="material-icons left">edit</i>Edit</a>
+
+    <div id="modal0" class="modal">
+      <div style="padding:50px 24px 50px 24px;" class="modal-content center-align">
+          <form action="/updateGithub/{{name}}" method="post">
+              {% csrf_token %}
+             <div class="row">
+               <div class="input-field col s12">
+                 <input value="{{git}}" placeholder="Github" type="text" name="new-github-link"><br><br>
+               </div>
+               <div class="input-field col s12">
+                  <input value="{{git_token}}" placeholder="Github token" type="text" name="new-github-token"><br><br>
+              </div>
+             </div>
+            <button class="btn-flat waves-effect waves-light" type="submit" name="action">Save
+              <i class="material-icons right">send</i>
+            </button>
+          </form>
+      </div>
+    </div>
+
     <h6>{% for member in membs %}
       {% if member != membs|last %}
         {{member}},
