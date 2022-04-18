@@ -143,6 +143,33 @@
       {% endfor %}
     </div>
   </div>
+
+
+  <div class="row">
+    <div class="col s12 center-align">
+      <a class="waves-effect waves-light btn-flat modal-trigger" href="#modal2"><i class="material-icons left">add_circle_outline</i>Create a Github Issue</a>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal">
+    <div style="padding:50px 24px 50px 24px;" class="modal-content center-align">
+        <form action="/createIssue/{{name}}/{{git}}/{{git_token}}" method="post">
+          {% csrf_token %}
+           <div class="row">
+             <div class="input-field col s12">
+               <input placeholder="Issue title" type="text" name="new-issue-title"><br><br>
+             </div>
+             <div class="input-field col s12">
+              <input placeholder="Issue body" type="text" name="new-issue-body"><br><br>
+             </div>
+           </div>
+          <button class="btn-flat waves-effect waves-light" type="submit" name="action">Create Issue
+            <i class="material-icons right">send</i>
+          </button>
+        </form>
+    </div>
+  </div>
+
   <br>
   {% if git != "" and git != "none" and git != "https://github.com/" %}
   <div class="row">

@@ -34,5 +34,6 @@ urlpatterns = [
     path('member_decision/<str:user_email>/<str:group_name>/<str:decision>', hello.views.member_decision),
     path('postCreateTask/<str:group_name>', hello.views.postCreateTask),
     path('updateDescription/<str:group_name>', hello.views.updateDescription),
-    path('updateGithub/<str:group_name>', hello.views.updateGithub)
+    path('updateGithub/<str:group_name>', hello.views.updateGithub),
+    path('createIssue/<str:group_name>/<path:git>/<str:git_token>', hello.views.createIssue)
 ]
