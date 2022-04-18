@@ -27,13 +27,13 @@ Here is the most important functionality that Periwinkl provides.
 
 ### Credentials
 
-This project uses Firebase, and therefore will require an API key to run. It is also deployed on Heroku which will require an account for their service. Finally, for full group functionality and integration with GitHub, users must provide an authorization token upon creating a group.
+This project uses Firebase, and therefore will require an API key to run. This can be replaced inside of the `views.py` file. It is also deployed on Heroku which will require an account for their service. Finally, for full group functionality and integration with GitHub, users must provide an authorization token upon creating a group.
 
 
 
 ### Requirements
 
-For local versions of this app, you must install those services that are listed in the `requirements.txt` file. It will automatically connect to the appropriate Firebase project from the API key in the code. The following are the modules necessary.
+For local versions of this app, you must install those services that are listed in the `requirements.txt` file. It will automatically connect to the appropriate Firebase project from the API key in the code. The following are the modules necessary. Once cloned, the repo can be run using the `python manage.py runserver` command.
 
 ```
 django
